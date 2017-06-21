@@ -2,6 +2,7 @@ import _ from 'lodash';
 import express from 'express';
 import { createClient } from 'contentful';
 import { markdown } from 'markdown';
+import urljoin from 'url-join';
 
 const getClient = () => createClient({
     // This is the space ID. A space is like a project folder in Contentful terms
@@ -21,7 +22,7 @@ router.get('/', (req, res, next) => {
         .filter(x => x.sys.contentType.sys.id === process.env.POST_TYPE_ID)
         .map(x => ({
           title: x.fields.title,
-          url: `./post/${x.fields.slug}`,
+          url: urljoin(req.baseUrl, `post/${x.fields.slug}`),
         }))
         .value();
       res.render('entries', {

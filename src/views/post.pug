@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  h3 By #{author}
+  if featuredImage
+    img(
+      src= featuredImage.url
+      width= featuredImage.width
+      height= featuredImage.height
+      alt= featuredImage.alt
+    )
+  div!= body
